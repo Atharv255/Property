@@ -18,16 +18,16 @@ export async function POST(request: NextRequest) {
     }
     
     // Check for admin credentials first
-    if (email === 'ajit@admin.com' && password === 'Ajit@123') {
+    if (email === 'ajittiwari@admin.com' && password === 'JaiShreeRam@123') {
       // Check if admin user exists in database
-      let adminUser = await User.findOne({ email: 'ajit@admin.com' });
-      
+      let adminUser = await User.findOne({ email: 'ajittiwari@admin.com' });
+
       if (!adminUser) {
         // Create admin user if doesn't exist
-        const hashedPassword = await hashPassword('Ajit@123');
+        const hashedPassword = await hashPassword('JaiShreeRam@123');
         adminUser = new User({
           name: 'Ajit Tiwari',
-          email: 'ajit@admin.com',
+          email: 'ajittiwari@admin.com',
           password: hashedPassword,
           role: 'admin'
         });
