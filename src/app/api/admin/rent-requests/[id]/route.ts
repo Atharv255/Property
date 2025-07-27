@@ -3,12 +3,18 @@ import dbConnect from '@/lib/mongodb';
 import RentRequest from '@/models/RentRequest';
 import { withAdminAuth, AuthenticatedRequest } from '@/lib/middleware';
 
+// Helper to extract params from request URL
+function getParams(request: AuthenticatedRequest) {
+  const url = new URL(request.url);
+  const id = url.pathname.split('/').pop();
+  return { id };
+}
+
 // PUT update rent request status (admin only)
-async function putHandler(request: AuthenticatedRequest, { params }: { params: { id: string } }) {
+async function putHandler(request: AuthenticatedRequest) {
   try {
     await dbConnect();
-    
-    const { id } = params;
+    const { id } = getParams(request);
     const { status } = await request.json();
     
     // Validate status
